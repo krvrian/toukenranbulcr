@@ -1,0 +1,415 @@
+<!DOCTYPE HTML>
+<!--
+	Prologue by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Touken Ranbu Launcher</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<script src="../js/livereload.js"></script>
+	</head>
+	<body id=appleh>
+
+		<!-- Header -->
+			<div id="header">
+
+				<div class="top">
+
+					<!-- Logo -->
+						<div id="logo">
+							<span class="image avatar48"><img src="/images/appimage.png" alt="" /></span>
+							<h1 id="title"><b v-if="view.player.name!=null">----</b></h1>
+							<p id=level>---</p>
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<!--
+
+								Prologue's nav expects links in one of two formats:
+
+								1. Hash link (scrolls to a different section within the page)
+
+								   <li><a href="#foobar" id="foobar-link" class="icon fa-whatever-icon-you-want skel-layers-ignoreHref"><span class="label">Foobar</span></a></li>
+
+								2. Standard link (sends the user to another page/site)
+
+								   <li><a href="http://foobar.tld" id="foobar-link" class="icon fa-whatever-icon-you-want"><span class="label">Foobar</span></a></li>
+
+							-->
+							<ul>
+								<li><a href="#top" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-gamepad">Games</span></a></li>
+								<li><a href="#portfolio" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-user">Info</span></a></li>
+								<li><a href="#about" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-tasks">Mission</span></a></li>
+								<li><a href="#contact" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-newspaper-o">News</span></a></li>
+							</ul>
+						</nav>
+						<div id=resources></div>
+				</div>
+				
+				<div class="bottom">
+
+					<!-- Social Icons -->
+						<ul class="icons">
+							<li><a href="https://twitter.com/ChlovaAprian" title="Chlova Aprian Twitter" class="icon fa-twitter"><span class="label">Chlova Aprian Twitter</span></a></li>
+							<li><a href="https://www.facebook.com/groups/Tohken/" title="ToukenID Facebook" class="icon fa-facebook"><span class="label">ToukenID Facebook</span></a></li>
+							<li><a href="https://plus.google.com/101733625425724348531/posts" title="Chlova Aprian G+" class="icon fa-google-plus"><span class="label">Chlova Aprian G+</span></a></li>
+							<li><a href="mailto:kurovarian@gmail.com" title="Email Me!!" class="icon fa-envelope"><span class="label">Email Me!!</span></a></li>
+							<li><a id=skrins href="javascript:void(0)" onclick="screenShot(id);return false;" title="ScreenShots" class="icon fa-camera"><span class="label">ScreenShots</span></a></li>
+						</ul>
+
+				</div>
+
+			</div>
+
+		<!-- Main -->
+			<div id="main">
+
+				<!-- Intro -->
+					<section id="top" class="one dark cover">
+						<!-- <div class="container"> -->
+
+						<iframe id="gameOuterFrame" class="games" src="http://www.dmm.com/netgame/social/-/gadgets/=/app_id=825012/"></iframe>						
+						<!-- </div> -->
+					</section>
+
+				<!-- Portfolio -->
+					<section id="portfolio" class="two">
+						<div id="party" class="container">
+							 <div class="container">
+							 <ul class="nav" style="text-align: center;font-size: 16px;margin-left: -50px; padding: ">
+							<li v-class="active: tab == 2" v-on="click: tab = 2, click: updatethis">Parties</li>
+      <li v-class="active: tab == 3" v-on="click: tab = 3, click: updatethis">Citadel</li>
+      <li v-class="active: tab == 5" v-on="click: tab = 5, click: updatethis">Logs</li>
+      <!-- <li v-class="active: tab == -1" v-on="click: tab = -1">Settings</li> -->
+      <li v-class="active: tab == -2" v-on="click: tab = -2, click: updatethis">Credits</li>
+			</ul>
+      <div v-if="!gaming" class="outgame"> </div>
+      <!-- ????-->
+      <div v-if="!view['party']['set']" v-show="tab==2">No data found, please go to ??(Formation) tab.</div>
+      <!-- ????-->
+      <div v-if="view['party']['set']" v-show="tab==2">
+        <div v-if="view['party']['set']" class="party">
+          <div v-repeat="view['party']['data']" class="party-item">
+            <!-- ???????-->
+            <div class="name">{{party_name}}<span v-show="in_battle(party_no)" class="status">[Sortie]</span><span v-show="status==2" class="status">[Expedition]</span><span v-show="status==2" class="status">[{{finished_at | conquest_time}}]</span></div>
+            <!-- ???????-->
+            <div class="amounts"><span class="alv">Average Lv.<b>{{avearge_lv}}</b></span><span class="lva">Total Lv.<b>{{amount_lv}}</b></span></div>
+            <!-- ??-->
+            <ul class="swords">
+              <li v-on="click: updatethis" v-repeat="slot" class="ss">
+                <div v-if="serial_id==null" class="item"><img src="../../assets/sword/0.png" class="simg">
+                  <div class="c">
+                    <div class="sname">Empty</div>
+                    <div class="slv">Lv.0 (next 0)</div>
+                  </div>
+                  <div class="c">
+                    <div class="shp">HP 0 / 0</div>
+                    <div class="sf"><span class="sfico"></span>0</div>
+                  </div>
+                  <div class="c2">
+                    <div class="sequ"><span>[Empty]</span></div>
+                  </div>
+                </div>
+                <div v-if="serial_id!=null" class="item"><img v-attr="src: '../../assets/sword/' + sword_id + '.png'" class="simg">
+                  <div class="c">
+                    <div class="sname">{{name}}<span v-show="status==1" class="ssta">[Repair]</span><span v-show="hp/hp_max&lt;=0.9 &amp;&amp; hp/hp_max&gt;0.65 &amp;&amp; status!=1" class="ssta y">[Light]</span><span v-show="hp/hp_max&lt;=0.65 &amp;&amp; hp/hp_max&gt;0.3 &amp;&amp; status!=1" class="ssta o">[Moderate]</span><span v-show="hp/hp_max&lt;=0.3&amp;&amp;status!=1" class="ssta r">[Severe]</span></div>
+                    <div class="slv">Lv.{{level}}(next {{next_exp}})</div>
+                  </div>
+                  <div class="c">
+                     <div class="shp">HP {{hp}} / {{hp_max}}</div>
+                     <div class="sf"><span v-class="r: fatigue &lt; 6,y: fatigue &gt;= 6 &amp;&amp; fatigue &lt; 20,p: fatigue &gt;= 50" class="sfico"></span><span v-show="fatigue &gt;= 50">Sakura </span><span v-show="fatigue &lt; 50 &amp;&amp; fatigue &gt;= 20">Normal </span><span v-show="fatigue &lt; 20">Fatigue</span><span>{{fatigue}}</span><span v-show="fatigue &gt;= 50">(+20%)</span><span v-show="fatigue &gt;= 6 &amp;&amp; fatigue &lt; 20">(-20%)</span><span v-show="fatigue &lt; 6">(-40%)</span></div>
+                  </div>
+                  <div class="c2">
+                    <div class="sequ"><span v-if="equip_serial_id1!=null" v-class="r: equip_1['level'] == 2, ur: equip_1['level'] == 0, b: equip_1['soldier_now'] == 0">[{{equip_1['sname']}} {{equip_1['soldier_now']}}/{{equip_1['soldier_max']}}]</span><span v-if="equip_serial_id1==null&amp;&amp;max_equip&gt;=1">[Empty]</span><span v-if="equip_serial_id2!=null" v-class="r: equip_2['level'] == 2, ur: equip_2['level'] == 0, b: equip_2['soldier_now'] == 0">[{{equip_2['sname']}} {{equip_2['soldier_now']}}/{{equip_2['soldier_max']}}]</span><span v-if="equip_serial_id2==null&amp;&amp;max_equip&gt;=2">[Empty]</span><span v-if="equip_serial_id3!=null" v-class="r: equip_3['level'] == 2, ur: equip_3['level'] == 0, b: equip_3['soldier_now'] == 0">[{{equip_3['sname']}} {{equip_3['soldier_now']}}/{{equip_3['soldier_max']}}]</span><span v-if="equip_serial_id3==null&amp;&amp;max_equip&gt;=3">[Empty]</span></div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div class="clear"></div>
+            <div v-show="grouter('conquest')"> </div>
+            <div v-show="grouter('sally')"> </div>
+          </div>
+        </div>
+      </div>
+  <div v-if="tab==3" class="forge-rep" style="font-size: 16px;">
+  <div class="panel fr" style="
+    float: left;
+    padding-right: 70px;">
+    <div class="t">Armory</div>
+    <div v-show="!view['equips']['set']" class="amounts">No data found, please go to ??(Formation) tab.</div>
+    <ul v-if="view['equips']['set']" class="equ">
+      <li v-repeat="view['equips']['data']">[{{$key | e2n}}] {{$value}}</li>
+    </ul>
+  </div>
+  <div class="panel fr">
+    <div class="t">Smithing<span style="cursor: pointer;" v-on="click: toggleForge" class="alv">[Click to view prediction]</span></div>
+    <div class="amounts"><span class="alv">Workshop <b>{{data['forge']['open']}}</b></span><span class="lva">in use: <b>{{checkout('forge')}}</b></span></div>
+    <ul class="equ">
+      <li v-repeat="data['forge']['data']">[{{finished_at | tt2lt}}] {{sword_id | fs2n}}</li>
+    </ul>
+  </div>
+  <div class="panel fr">
+    <div class="t">Repair</div>
+    <div class="amounts"><span class="alv">Workshop <b>{{data['repair']['open']}}</b></span><span class="lva">in use: <b>{{checkout('repair')}}</b></span></div>
+    <ul class="equ">
+      <li v-repeat="data['repair']['data']">[{{finished_at | tt2lt}}] {{sword_serial_id | sid2n}}</li>
+    </ul>
+  </div>
+</div>
+<div v-if="tab==5" class="logs">
+  <!-- <div class="panel">
+<div style="cursor: pointer;" v-on="click: saveLogs()" class="t">Click to download data as Excel file</div>
+  </div> -->
+  <div class="panel">
+    <div class="t">Smith statistics</div>
+    <table id="data2">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Result</th>
+          <th>Smithing duration</th>
+          <th>Charcoal</th>
+          <th>Steel</th>
+          <th>Coolant</th>
+          <th>Whetstone</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-repeat="data['logs']['forge']">
+          <!-- "1-1426389451000":{"slot_no":"1","finish_at":1426389451000,"sword_id":"45","resource":false,"charcoal":"50","coolant":"50","file":"50","steel":"50"}-->
+          <td>{{finish_at | ls2t}}</td>
+          <td>{{sword_id | ls2n}}</td>
+          <td>{{resource?times:'-'}} min</td>
+          <td>{{resource?charcoal:'-'}}</td>
+          <td>{{resource?steel:'-'}}</td>
+          <td>{{resource?coolant:'-'}}</td>
+          <td>{{resource?file:'-'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="panel">
+    <div class="t">Drop statistics</div><span> </span>
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Team</th>
+          <th>Rank</th>
+          <th>Drop</th>
+          <th>Map</th>
+          <th>Node</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-repeat="data['logs']['battle']">
+          <td>{{time | ls2t}}</td>
+          <td>{{party_no}}</td>
+          <td>{{rank | r2r}}</td>
+          <td>{{get_sword_id | ls2n}}</td>
+          <td>{{battle_episode}}-{{battle_field}}</td>
+          <td>{{battle_pos}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- Thi?t l?p-->
+<!--
+<div v-show="tab==-1">
+  <div class="panel-config">
+    <div class="t">Data</div>
+    <ul class="sl">
+      <li>
+        <div class="act">Turn on fatigue calculation:<span v-class="on: config.cad == 0" v-on="click: applyConfig('cad', 0)">OFF</span><span v-class="on: config.cad == 1" v-on="click: applyConfig('cad', 1)">ON</span></div>
+        <div class="desc">Data isn't 100% accurate.</div>
+      </li>
+      <li>
+        <div class="act">Don't turn this on<span v-class="on: config.cadOffList == 0" v-on="click: applyConfig('cadOffList', 0)">OFF</span><span v-class="on: config.cadOffList == 1" v-on="click: applyConfig('cadOffList', 1)">ON</span></div>
+        <div class="desc">This feature isn't complete yet, don't use it.</div>
+      </li>
+      <li>
+        <div class="act">Game data saving:<span v-class="on: config.dataCache == 0" v-on="click: applyConfig('dataCache', 0)">OFF</span><span v-class="on: config.dataCache == 1" v-on="click: applyConfig('dataCache', 1)">ON</span></div>
+        <div class="desc">
+          It is recommended to turn this on. 
+        </div>
+        <div v-show="dataExist" v-on="click: applyConfig('dataCache', -1)" style="cursor: pointer;" class="desc"><** Clear data **></div>
+      </li>
+    </ul>
+  </div>
+  <div class="panel-config">
+    <div class="t">Notifications</div>
+    <ul class="sl">
+      <li>
+        <div class="act">Expeditions<span v-class="on: config.notify_conquest == 0" v-on="click: applyConfig('notify_conquest', 0)">OFF</span><span v-class="on: config.notify_conquest == 1" v-on="click: applyConfig('notify_conquest', 1)">5min</span><span v-class="on: config.notify_conquest == 2" v-on="click: applyConfig('notify_conquest', 2)">2min</span><span v-class="on: config.notify_conquest == 3" v-on="click: applyConfig('notify_conquest', 3)">30sec</span><span v-class="on: config.notify_conquest == 4" v-on="click: applyConfig('notify_conquest', 4)">When finished</span></div>
+        <div class="desc">Notifies when your expedition is completed</div>
+      </li>
+      <li>
+        <div class="act">Repair<span v-class="on: config.notify_repair == 0" v-on="click: applyConfig('notify_repair', 0)">OFF</span><span v-class="on: config.notify_repair == 1" v-on="click: applyConfig('notify_repair', 1)">5min</span><span v-class="on: config.notify_repair == 2" v-on="click: applyConfig('notify_repair', 2)">2min</span><span v-class="on: config.notify_repair == 3" v-on="click: applyConfig('notify_repair', 3)">30sec</span><span v-class="on: config.notify_repair == 4" v-on="click: applyConfig('notify_repair', 4)">When finished</span></div>
+        <div class="desc">
+         Notifies when you've finished repairing. If you used a [Help Token], the notification would still be there.        </div>
+      </li>
+      <li>
+        <div class="act">Damage<span v-class="on: config.notify_broken == 0" v-on="click: applyConfig('notify_broken', 0)">OFF</span><span v-class="on: config.notify_broken == 1" v-on="click: applyConfig('notify_broken', 1)">Severe damage</span><span v-class="on: config.notify_broken == 2" v-on="click: applyConfig('notify_broken', 2)">Moderate damage</span><span v-class="on: config.notify_broken == 3" v-on="click: applyConfig('notify_broken', 3)">Minor damage</span><span v-class="on: config.notify_broken == 4" v-on="click: applyConfig('notify_broken', 4)">Blood loss</span><span v-class="on: config.notify_broken == 5" v-on="click: applyConfig('notify_broken', 5)">Troop loss</span></div>
+        <div class="desc">Notifies when your sword are injured</div>
+        <div class="desc">Higher level injury will be included, ex: if you choose "Troop loss" then you get "Blood loss" or "Minor injury" in a fight, a notification will still be given.</div>
+      </li>
+      <li>
+        <div class="act">Sword drop<span v-class="on: config.notify_getnew == 0" v-on="click: applyConfig('notify_getnew', 0)">OFF</span><span v-class="on: config.notify_getnew == 1" v-on="click: applyConfig('notify_getnew', 1)">Rare swords</span><span v-class="on: config.notify_getnew == 2" v-on="click: applyConfig('notify_getnew', 2)">S Rare swords</span><span v-class="on: config.notify_getnew == 3" v-on="click: applyConfig('notify_getnew', 3)">All</span></div>
+        <div class="desc">Notifies when you get a drop.</div>
+        <div class="desc">*Rare swords: Yari, Naginata, special Tachi, Oodachi, & super rare swords.</div>
+        <div class="desc">*Super rare swords: Mikazuki and Kogitsunemaru.</div>
+      </li>
+    </ul>
+  </div>
+</div>
+-->
+      <!-- ??-->
+<!-- 设置-->
+<div v-show="tab==-2">
+  <div class="panel-about">
+    <div class="t">审神忙 · Tohken Ranbu Helper</div>
+    <ul class="sl">
+      <li>
+        <div class="desc">当前版本： V0.2.0 (Beta)</div>
+        <div class="desc">构建时间： Sun Mar 15 2015 17:29:54 GMT+0900 (Tokyo Standard Time)</div>
+        <div class="desc">项目仓库：<a href="https://github.com/hitomi/tohken">https://github.com/hitomi/tohken</a></div>
+      </li>
+    </ul>
+  </div>
+  <div class="panel-about">
+    <div class="t">STAFF</div>
+    <ul class="sl">
+      <li>
+        <div class="act">攻城狮</div>
+        <div class="desc">求助攻！求一起战斗！</div>
+        <div class="desc"><a href="http://weibo.com/moelynn" target="_blank">@毫无存在感的凌</a></div>
+      </li>
+      <li>
+        <div class="act">攻略组</div>
+        <div class="desc">各位测试组成员天天帮忙踩坑跑图拿数据和抓虫OwO，超辛苦的！万分感谢！！没有你们就没法这么快的把新版本坑出来！</div>
+        <div class="desc"><a href="http://weibo.com/NKSan" target="_blank">@1tuka</a></div>
+        <div class="desc"><a href="http://weibo.com/u/2206048461" target="_blank">@生亦求喂食</a></div>
+        <div class="desc"><a href="http://weibo.com/sr34v5" target="_blank">@Rabbit_仙鹤归家w</a></div>
+        <div class="desc"><a href="http://weibo.com/moyuchaoren" target="_blank">@茈予-安详地舔舔舔</a></div>
+        <div class="desc"><a href="http://weibo.com/koei327" target="_blank">@常暗_PETY亚洲善待山姥切国広组</a></div>
+      </li>
+      <li>
+        <div class="act">感谢</div>
+        <div class="desc">刀纹和资料</div>
+        <div class="desc"><a href="http://wikiwiki.jp/toulove" target="_blank">Toulove</a></div>
+        <div class="desc">帮咱解读了不少百科上的内容（咱日语废）</div>
+        <div class="desc"><a href="http://weibo.com/huihuiowo" target="_blank">@幸好我长的帅</a></div>
+        <div class="desc">前期测试协助，另外戳过去能看到会动可以戳还会说话的Live2D动态壁纸哦！</div>
+        <div class="desc"><a href="http://weibo.com/546246695" target="_blank">@高庄主-蹲等魔界战记5</a></div>
+      </li>
+    </ul>
+  </div>
+  <div class="panel-about">
+    <div class="t">目前已知BUG</div>
+    <ul class="sl">
+      <li>
+        <div class="act">手入时使用手伝い札时提醒不会消失</div>
+        <div class="act">小判数量不会变化</div>
+        <div class="act">界面特别窄时字会堆在一起</div>
+      </li>
+    </ul>
+  </div>
+  <div class="panel-about">
+    <div class="t">更新公告</div>
+    <ul class="sl">
+      <li>
+        <div class="act">v0.2.0 150315</div>
+        <div class="desc">* 远征提醒修复</div>
+        <div class="desc">+ 手入提醒</div>
+        <div class="desc">+ 疲劳演算</div>
+        <div class="desc">+ 刀装汇总</div>
+        <div class="desc">+ 锻刀和掉落统计</div>
+      </li>
+      <li>
+        <div class="act">v0.1.3 150304</div>
+        <div class="desc">* 更完善的修复了提醒失效问题(感谢微博<a href="http://weibo.com/moyuchaoren" target="_blank">@茈予-安详地舔舔舔</a>提供的错误报告截图，感谢<a href="http://weibo.com/koei327" target="_blank">@常暗_PETY亚洲善待山姥切国広组</a>进行测试汇报)</div>
+        <div class="desc">追加平均等级和等级总和的显示功能，等级总和在鼠标悬停在平均等级上时会出现(微博<a href="http://weibo.com/NKSan" target="_blank">@1tuka</a>)</div>
+      </li>
+      <li>
+        <div class="act">v0.1.2 150304</div>
+        <div class="desc">紧急修复提醒失效问题(微博<a href="http://weibo.com/moyuchaoren" target="_blank">@茈予-安详地舔舔舔</a>)</div>
+      </li>
+      <li>
+        <div class="act">v0.1.1 150304</div>
+        <div class="desc">修正了99级时的显示问题(来自贴吧@catofsickle)</div>
+        <div class="desc">追加设置页面，可以开启和关闭部分提醒功能</div>
+        <div class="desc">增加战斗过程中的爆刀剧透功能，请在设置页面中手工开启(微博<a href="http://weibo.com/60046002" target="_blank">@天見禎芽-目指立派前野厨</a>)</div>
+      </li>
+    </ul>
+  </div>
+</div>
+    </div>
+						</div>
+					</section>
+
+				<!-- About Me -->
+					<section id="about" class="three">
+						<div class="container">
+							<img src="/images/shot-20150910-2039-1e7odi0.jpg" width="960px"></img>
+						</div>
+					</section>
+
+				<!-- Contact -->
+					<section id="contact" class="four">
+						<div class="container">
+							<p>TWEET BY @TOUKEN_STAFF</p>
+							<iframe class="twit" src="http://launcher.catouranidlcr.ga/twit.html" width="600" height="600" frameborder="0"></iframe>
+
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Footer -->
+			<div id="footer">
+
+				<!-- Copyright -->
+					<ul class="copyright">
+						<li>TOUKEN RANBU LAUNCHER by Chlova Aprian</li>
+					</ul>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/jquery.scrollzer.min.js"></script>
+			<script src="../assets/js/skel.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="../assets/js/main.js"></script>
+			<script src="../js/jquery-2.1.1.min.js"></script>
+			<script src="../js/constants.js"></script>
+		    <script src="../js/define.js"></script>
+			<script src="../js/consoledata.js"></script>
+			<script src="../js/SkrinSuts.js"></script>
+			<script src="../js/html2canvas.js"></script>
+			<script src="../js/vue.js"></script>
+			<script src="../js/thisone.js"></script>
+			<script src="../js/lodash.js"></script>
+			<script src="../js/FileSaver.js"></script>
+			<script src="../js/define.js"></script>
+			<script src="../js/data.js"></script>
+			<script src="../js/config.js"></script>
+			<script src="../js/store.js"></script>
+			<script src="../js/event.js"></script>
+			<script src="../js/parse.js"></script>
+			<script src="../js/router.js"></script>
+			<script src="../js/view.js"></script>
+			<script src="../js/app.js"></script>
+	</body>
+</html>

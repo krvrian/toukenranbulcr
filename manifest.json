@@ -1,0 +1,42 @@
+{
+   "author": "Chlova Aprian",
+   "background": {
+      "page": "/pages/background.html",
+      "persistent": true
+   },
+   "browser_action": {
+      "default_icon": "/images/toransmall.png",
+      "default_popup": "/pages/popup.html"
+   },
+   "devtools_page": "devtools/devtools.html",
+   "content_security_policy": "default-src 'self'  chrome-extension-resource: ; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-eval';  connect-src *; frame-src *;",
+   "content_scripts": [ {
+      "all_frames": true,
+      "js": [ "/js/jquery-2.1.1.min.js", "/js/constants.js", "/js/netgame.js" ],
+      "matches": [ "*://*.dmm.com/netgame/social/-/gadgets/=/*" ]
+   }, {
+      "all_frames": true,
+      "js": [ "/js/jquery-2.1.1.min.js", "/js/constants.js", "/js/osapi.js" ],
+      "matches": [ "*://osapi.dmm.com/gadgets/ifr?*" ]
+   }, {
+      "all_frames": true,
+      "js": [ "/js/jquery-2.1.1.min.js", "/js/constants.js", "/js/area_error.js" ],
+      "matches": [ "*://*.dmm.com/top/-/error/area/*" ]
+   }, {
+      "all_frames": true,
+      "js": [ "/js/jquery-2.1.1.min.js", "/js/constants.js", "/js/login.js" ],
+      "matches": [ "*://*.dmm.com/my/-/login/*" ]
+   } ],
+   "description": "Touken Ranbu Launcher",
+   "icons": {
+      "128": "/images/appimage.png",
+      "16": "/images/appimage.png",
+      "48": "/images/appimage.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAycdPKvU+CTaj0UH/yHVWycmJjDXsLAOeVDa+8bbg3T9Rk6Y+Nb82abwRur0s9B+14ZbyWpDfgthii0+kaDCsBxz6sHSJYZDlHJG1oDeuQ8nerfNRAzGXUilIykrpoBz9jNKWnpcUF/VMnliIPlFYeg+ZsiJndVSWg2nGZISvpWfNMjoeXY6XOTc/c+oEeZVZINz+1Md08cdyRodSZm00Yl95rEX/SvfdmVC+b2w4n0ONq9VpnN9lEFuWTsITI9XK/q821MLY+ca6Ks4qoFYmVZPSVWZl2iF53JHUtL6GK02cealyU6XxhLagMwtMwYZsyz21Do0lrLnU7dwEAB4qZQIDAQAB",
+   "manifest_version": 2,
+   "minimum_chrome_version": "27",
+   "name": "Touken Ranbu Launcher",
+   "permissions": [ "cookies", "tabs", "*://*.dmm.com/*", "notifications", "activeTab", "<all_urls>", "alarms", "http://*/*" ],
+   "version": "0.1.0"
+}

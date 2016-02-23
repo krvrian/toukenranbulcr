@@ -1,0 +1,16 @@
+1. Ekstrak semua file ke satu folder bebas (lebih mudah jika tidak terlalu dalam, contoh: C:\Touran)
+
+2. Masuk ke Google Chrome, ketik chrome://extensions/ lalu klik Developer mode kemudian Load Unpacked Extension...
+
+3. pilih folder yang tadi digunakan untuk ekstraksi file launcher
+
+4. jika sudah ada extension seperti di gambar, dan ada icon di pojok kanan atas, maka extension sudah terinstall
+
+5. klik icon, lalu klik Mulai!
+
+6. Contoh hasil seperti pada gambar 6
+
+pertanyaan silahkan hubungi Chlova Aprian
+twitter: @ChlovaAprian
+Facebook: facebook.com/krvrian
+Email: kurovarian@gmail.com

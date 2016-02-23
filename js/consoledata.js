@@ -1,0 +1,11 @@
+var store1 = localStorage.getItem('TRH_DataCache');
+var store2 = JSON.parse(store1);
+document.getElementById("title").innerHTML = store2.player.name;
+document.getElementById("level").innerHTML = 'Saniwa, Level: '+ store2.player.level;
+document.getElementById("charcoal").innerHTML = 'Arang (Charcoal/木炭): '+ store2.resource.charcoal;
+document.getElementById("steel").innerHTML = 'Besi (Steel/玉鋼): '+ store2.resource.steel;
+document.getElementById("coolant").innerHTML = 'Pendingin (Coolant/冷却材): '+ store2.resource.coolant;
+document.getElementById("whetstone").innerHTML = 'Batu Asah (Whetstone/砥石): '+ store2.resource.file;
+document.getElementById("money").innerHTML = 'Koin Emas (Koban/小判): '+ store2.resource.money;
+document.getElementById("helpt").innerHTML = 'Help Token (手伝い礼): '+ store2.resource.bonemeal;
+document.getElementById("reqt").innerHTML = 'Request Token (依頼札): '+ store2.resource.bill;
